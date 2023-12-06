@@ -11,6 +11,7 @@
 		E60B84912B208C7C00AA4070 /* MWSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60B84862B208C7B00AA4070 /* MWSDK.framework */; };
 		E60B84962B208C7C00AA4070 /* MWSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B84952B208C7C00AA4070 /* MWSDKTests.m */; };
 		E60B84972B208C7C00AA4070 /* MWSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E60B84892B208C7B00AA4070 /* MWSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E60B84A32B20C16A00AA4070 /* MWSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B84A22B20C16A00AA4070 /* MWSDK.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		E60B848A2B208C7C00AA4070 /* MWSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = MWSDK.docc; sourceTree = "<group>"; };
 		E60B84902B208C7C00AA4070 /* MWSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MWSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60B84952B208C7C00AA4070 /* MWSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWSDKTests.m; sourceTree = "<group>"; };
+		E60B84A22B20C16A00AA4070 /* MWSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWSDK.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				E60B84892B208C7B00AA4070 /* MWSDK.h */,
 				E60B848A2B208C7C00AA4070 /* MWSDK.docc */,
+				E60B84A22B20C16A00AA4070 /* MWSDK.m */,
 			);
 			path = MWSDK;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E60B84A32B20C16A00AA4070 /* MWSDK.m in Sources */,
 				E60B848B2B208C7C00AA4070 /* MWSDK.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
