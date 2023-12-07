@@ -17,9 +17,31 @@ FOUNDATION_EXPORT const unsigned char MWSDKVersionString[];
 
 @interface MWSDK : NSObject
 
-/**
- Logs a message to the console.
- */
-+ (void)logMessage;
+
+//Defines
+typedef void (^LoginCompletionBlock)(NSDictionary<NSString *, id> * _Nullable userInfo);
+
+//Parameters
++ (char*_Nullable)apiKey;
++ (int)environment;//1:mainnet;2:devnet;3:testnet
++ (int)chain;//1:Solana;2:Ethereum;3:Polygon;4:BNB
+
+//Set functions
++ (void)setApiKey:(char *_Nullable)apiKey;
++ (void)setEnvironment:(int)environment;
++ (void)setChain:(int)chain;
+
+
+//Test functions
++ (void)logMessage:(NSString *_Nullable)message;
+
+//SDK functions
++ (void)startLogin:(LoginCompletionBlock _Nullable )completionBlock;
+
+
+//SDK callbacks
++ (LoginCompletionBlock _Nullable )loginOnCompletion:(LoginCompletionBlock _Nullable )completionBlock;
+
+
 
 @end

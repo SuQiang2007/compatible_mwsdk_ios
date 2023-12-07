@@ -9,6 +9,10 @@
 
 @interface MirrorBridegForC : NSObject
 
+extern "C"
+{
+    extern void LogMessage(const char* logContent);
+}
 
 extern "C"
 {
