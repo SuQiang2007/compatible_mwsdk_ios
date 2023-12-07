@@ -14,6 +14,8 @@
 		E60B84A32B20C16A00AA4070 /* MWSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B84A22B20C16A00AA4070 /* MWSDK.m */; };
 		E60B84E12B21620000AA4070 /* MirrorBridegForC.mm in Sources */ = {isa = PBXBuildFile; fileRef = E60B84DF2B21620000AA4070 /* MirrorBridegForC.mm */; };
 		E60B84E22B21620000AA4070 /* MirrorBridegForC.h in Headers */ = {isa = PBXBuildFile; fileRef = E60B84E02B21620000AA4070 /* MirrorBridegForC.h */; };
+		E60B84ED2B21B32C00AA4070 /* MWLoginPage.h in Sources */ = {isa = PBXBuildFile; fileRef = E60B84EC2B21B32C00AA4070 /* MWLoginPage.h */; };
+		E60B84EF2B21B35D00AA4070 /* MWLoginPage.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B84EE2B21B35D00AA4070 /* MWLoginPage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 		E60B84A22B20C16A00AA4070 /* MWSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWSDK.m; sourceTree = "<group>"; };
 		E60B84DF2B21620000AA4070 /* MirrorBridegForC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MirrorBridegForC.mm; sourceTree = "<group>"; };
 		E60B84E02B21620000AA4070 /* MirrorBridegForC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MirrorBridegForC.h; sourceTree = "<group>"; };
+		E60B84EC2B21B32C00AA4070 /* MWLoginPage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWLoginPage.h; sourceTree = "<group>"; };
+		E60B84EE2B21B35D00AA4070 /* MWLoginPage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWLoginPage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +84,10 @@
 				E60B84E02B21620000AA4070 /* MirrorBridegForC.h */,
 				E60B84DF2B21620000AA4070 /* MirrorBridegForC.mm */,
 				E60B84892B208C7B00AA4070 /* MWSDK.h */,
-				E60B848A2B208C7C00AA4070 /* MWSDK.docc */,
 				E60B84A22B20C16A00AA4070 /* MWSDK.m */,
+				E60B848A2B208C7C00AA4070 /* MWSDK.docc */,
+				E60B84EC2B21B32C00AA4070 /* MWLoginPage.h */,
+				E60B84EE2B21B35D00AA4070 /* MWLoginPage.m */,
 			);
 			path = MWSDK;
 			sourceTree = "<group>";
@@ -205,6 +211,8 @@
 			files = (
 				E60B84A32B20C16A00AA4070 /* MWSDK.m in Sources */,
 				E60B84E12B21620000AA4070 /* MirrorBridegForC.mm in Sources */,
+				E60B84EF2B21B35D00AA4070 /* MWLoginPage.m in Sources */,
+				E60B84ED2B21B32C00AA4070 /* MWLoginPage.h in Sources */,
 				E60B848B2B208C7C00AA4070 /* MWSDK.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

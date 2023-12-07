@@ -1,6 +1,7 @@
 // MWSDK.m
 
 #import "MWSDK.h"
+#import "MWLoginPage.h"
 
 @implementation MWSDK
 
@@ -10,6 +11,7 @@ static int environment = 0;
 static int chain = 0;
 
 static LoginCompletionBlock _Nullable loginCompletionBlock;
+static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/login";
 
 ///Get set functions
 + (void)setApiKey:(char *)newApiKey {
@@ -51,7 +53,7 @@ static LoginCompletionBlock _Nullable loginCompletionBlock;
 //Test functions
 + (void)logMessage:(NSString *)message{
     NSLog(@"logMessage:This is my message:%@",message);
-    NSDictionary<NSString *,id> * _Nullable userInfo;
+//    NSDictionary<NSString *,id> * _Nullable userInfo;
     
     LoginCompletionBlock loginBlock = [MWSDK loginOnCompletion];
 
@@ -68,6 +70,27 @@ static LoginCompletionBlock _Nullable loginCompletionBlock;
 + (void)startLogin:(LoginCompletionBlock)completionBlock {
     [MWSDK setLoginCompletionBlock:completionBlock];
     //MWSDK loginOnCompletion should be called when webview finish the login flow
+
+    NSURL *url = [NSURL URLWithString:loginUrl];
+    MWLoginPage *safariViewController = [[MWLoginPage alloc] initWithURL:url];
+    [[MWSDK getBaseViewController] presentViewController:safariViewController animated:YES completion:nil];
+}
+
++ (UIViewController *)getBaseViewController {
+    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+    UIViewController *rootViewController = window.rootViewController;
+
+    if (!rootViewController) {
+        return nil;
+    }
+
+    UIViewController *topController = rootViewController;
+
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+
+    return topController;
 }
 
 @end
