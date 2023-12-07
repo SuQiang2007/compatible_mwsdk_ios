@@ -12,6 +12,8 @@
 		E60B84962B208C7C00AA4070 /* MWSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B84952B208C7C00AA4070 /* MWSDKTests.m */; };
 		E60B84972B208C7C00AA4070 /* MWSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E60B84892B208C7B00AA4070 /* MWSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E60B84A32B20C16A00AA4070 /* MWSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B84A22B20C16A00AA4070 /* MWSDK.m */; };
+		E60B84E12B21620000AA4070 /* MirrorBridegForC.mm in Sources */ = {isa = PBXBuildFile; fileRef = E60B84DF2B21620000AA4070 /* MirrorBridegForC.mm */; };
+		E60B84E22B21620000AA4070 /* MirrorBridegForC.h in Headers */ = {isa = PBXBuildFile; fileRef = E60B84E02B21620000AA4070 /* MirrorBridegForC.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +33,8 @@
 		E60B84902B208C7C00AA4070 /* MWSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MWSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60B84952B208C7C00AA4070 /* MWSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWSDKTests.m; sourceTree = "<group>"; };
 		E60B84A22B20C16A00AA4070 /* MWSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWSDK.m; sourceTree = "<group>"; };
+		E60B84DF2B21620000AA4070 /* MirrorBridegForC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MirrorBridegForC.mm; sourceTree = "<group>"; };
+		E60B84E02B21620000AA4070 /* MirrorBridegForC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MirrorBridegForC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 		E60B84882B208C7B00AA4070 /* MWSDK */ = {
 			isa = PBXGroup;
 			children = (
+				E60B84E02B21620000AA4070 /* MirrorBridegForC.h */,
+				E60B84DF2B21620000AA4070 /* MirrorBridegForC.mm */,
 				E60B84892B208C7B00AA4070 /* MWSDK.h */,
 				E60B848A2B208C7C00AA4070 /* MWSDK.docc */,
 				E60B84A22B20C16A00AA4070 /* MWSDK.m */,
@@ -95,6 +101,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E60B84E22B21620000AA4070 /* MirrorBridegForC.h in Headers */,
 				E60B84972B208C7C00AA4070 /* MWSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E60B84A32B20C16A00AA4070 /* MWSDK.m in Sources */,
+				E60B84E12B21620000AA4070 /* MirrorBridegForC.mm in Sources */,
 				E60B848B2B208C7C00AA4070 /* MWSDK.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
