@@ -7,6 +7,9 @@
 
 #import <Foundation/Foundation.h>
 
+//Defines
+typedef void (^LoginCompletionBlock)(NSMutableDictionary<NSString *, id> * _Nullable loginResultDic);
+
 //! Project version number for MWSDK.
 FOUNDATION_EXPORT double MWSDKVersionNumber;
 
@@ -18,8 +21,6 @@ FOUNDATION_EXPORT const unsigned char MWSDKVersionString[];
 @interface MWSDK : NSObject
 
 
-//Defines
-typedef void (^LoginCompletionBlock)(NSDictionary<NSString *, id> * _Nullable userInfo);
 
 //Parameters
 + (char*_Nullable)apiKey;
@@ -37,10 +38,11 @@ typedef void (^LoginCompletionBlock)(NSDictionary<NSString *, id> * _Nullable us
 
 //SDK functions
 + (void)startLogin:(LoginCompletionBlock _Nullable )completionBlock;
-
++ (void)handleOpen:(NSURL*_Nonnull) url;
 
 //SDK callbacks
 + (LoginCompletionBlock _Nullable )loginOnCompletion:(LoginCompletionBlock _Nullable )completionBlock;
+
 
 
 
