@@ -11,6 +11,9 @@ static char *apiKey = nil;
 static int environment = 0;
 static int chain = 0;
 
+static NSString *accessToken = nil;
+static NSString *refreshToken = nil;
+
 static LoginCompletionBlock _Nullable loginCompletionBlock;
 static MWLoginPage  * _Nullable loginPage;
 static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/login";
@@ -32,6 +35,24 @@ static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/lo
 + (void)setChain:(int)newChain {
     NSLog(@"mwsdk:ios-chain set to:%d",newChain);
     chain = newChain;
+}
+
++ (void)setAccessToken:(NSString *)newAccToken {
+    NSLog(@"mwsdk:ios-access token set to:%@",newAccToken);
+    accessToken = newAccToken;
+}
+
++ (void)setRefreshToken:(NSString *)newRefreshToken {
+    NSLog(@"mwsdk:ios-refresh token set to:%@",newRefreshToken);
+    refreshToken = newRefreshToken;
+}
+
++ (NSString *)accessToken{
+    return accessToken;
+}
+
++ (NSString *)refreshToken{
+    return refreshToken;
 }
 
 + (void)setLoginCompletionBlock:(LoginCompletionBlock _Nullable)block {
@@ -74,9 +95,9 @@ static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/lo
         // 创建一个空的 NSMutableDictionary
         NSMutableDictionary<NSString *, id> *fakeDictionary = [NSMutableDictionary dictionary];
 
-        // 添加一些假数据
-        [fakeDictionary setObject:@"John" forKey:@"Name"];
-        [fakeDictionary setObject:@25 forKey:@"Age"];
+        // 想要查看的数据
+        [fakeDictionary setObject:accessToken forKey:@"AccessToken"];
+        [fakeDictionary setObject:refreshToken forKey:@"RefreshToken"];
         [fakeDictionary setObject:@"user@example.com" forKey:@"Email"];
 
         loginBlock(fakeDictionary);
@@ -164,6 +185,7 @@ static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/lo
 }
 
 +(void) _handleAccessToken:(NSString *) accessToken{
+    [self setAccessToken:accessToken];
     //todo set access token
 //                [MirrorWorldSDKAuthData share].access_token = accToken;
 //                if (self.accessTokenBlock) {
@@ -172,7 +194,7 @@ static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/lo
 }
 
 +(void) _handleRefreshToken:(NSString *) refreshToken{
-    
+    [self setRefreshToken:refreshToken];
     //todo set refresh token
 //                [MirrorWorldSDKAuthData share].refresh_token = refreToken;
 //                [[MirrorWorldSDKAuthData share] saveRefreshToken];

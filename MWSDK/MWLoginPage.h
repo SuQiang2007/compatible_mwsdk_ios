@@ -11,9 +11,6 @@
 #ifndef MWLoginPage_h
 #define MWLoginPage_h
 
-
-// MirrorWorldLoginAuthController.h
-
 #import <UIKit/UIKit.h>
 #import <SafariServices/SafariServices.h>
 
