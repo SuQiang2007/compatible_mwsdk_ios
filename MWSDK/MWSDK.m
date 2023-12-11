@@ -3,6 +3,8 @@
 #import "MWSDK.h"
 #import "MWLoginPage.h"
 #import "MWParser.h"
+#import "MWPersistence.h"
+#import "MWNetUtil.h"
 
 @implementation MWSDK
 
@@ -10,18 +12,22 @@
 static char *apiKey = nil;
 static int environment = 0;
 static int chain = 0;
+static bool initialized = false;
 
 static NSString *accessToken = nil;
 static NSString *refreshToken = nil;
 
-static LoginCompletionBlock _Nullable loginCompletionBlock;
-static MWLoginPage  * _Nullable loginPage;
+static LoginCompletionBlock _Nullable loginCompletionBlock;//Called when login flow is successed
+static MWLoginPage  * _Nullable loginPage;//Pointer of the opening login page
+
 static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/login";
+static NSString *const walletUrl = @"https://auth-next.mirrorworld.fun/v1/assets/tokens";
 
 
 
 
 ///Get set functions
+
 + (void)setApiKey:(char *)newApiKey {
     NSLog(@"mwsdk:ios-apikey set to:%s",newApiKey);
     apiKey = newApiKey;
@@ -108,7 +114,69 @@ static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/lo
 
 
 ////SDK functions
+
++ (void)mwRequestWithURL:(NSString *)url
+                  isPost:(BOOL)isPost
+                 dataDic:(NSDictionary<NSString *, id> *_Nullable)dataDic
+                successBlock:(void (^)(NSString *responseString))successBlock
+                failBlock:(void (^)(NSInteger code, NSString *errorDesc))failBlock
+{
+    
+    NSString *method = isPost ? @"POST" : @"GET";
+    NSString *apiKeyString = [NSString stringWithUTF8String:apiKey];
+
+    [MWNetUtil requestWithURL:url method:method params:dataDic apiKey:apiKeyString authorizationToken:nil accessToken:accessToken success:^(NSString *response) {
+            if(successBlock) successBlock(response);
+        } faild:^(NSInteger code, NSString *errorDesc) {
+            if(failBlock) failBlock(code,errorDesc);
+        }
+    ];
+}
+
++ (void)autoLogin:(LoginCompletionBlock)completionBlock {
+    if (!initialized) {
+        NSLog(@"mwsdk ios: please call MWSDK initSDK first!");
+        return;
+    }
+    
+    NSString *url = @"https://api.mirrorworld.fun/v2/auth/refresh-token";
+    NSDictionary<NSString *, id> *tokenDictionary = @{@"x-refresh-token": refreshToken};
+    [self mwRequestWithURL:url
+                    isPost:false
+                   dataDic:tokenDictionary
+              successBlock:^(NSString * responseString) {
+        
+                    NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+                    NSError *jsonError;
+
+                    NSMutableDictionary<NSString *, id> *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&jsonError];
+
+                    if (jsonError) {
+                        NSLog(@"Error parsing JSON: %@", jsonError.localizedDescription);
+                    } else {
+                        NSLog(@"Parsed JSON: %@", jsonDict);
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (completionBlock) {
+                            completionBlock(jsonDict);
+                        }
+                    });
+              }
+                 failBlock:^(NSInteger code, NSString * errorDesc) {
+                     NSLog(@"mwsdk ios:auto login failed, opening login page...");
+                     
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self startLogin:completionBlock];
+                    });
+                 }];
+}
+
+
 + (void)startLogin:(LoginCompletionBlock)completionBlock {
+    if(!initialized){
+        NSLog(@"mwsdk ios: please call MWSDK initSDK first!");
+        return;
+    }
     [MWSDK setLoginCompletionBlock:completionBlock];
     //MWSDK loginOnCompletion should be called when webview finish the login flow
 
@@ -118,6 +186,20 @@ static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/lo
     [[MWSDK getBaseViewController] presentViewController:safariViewController animated:YES completion:nil];
 }
 
++ (void)initSDK:(int)env chain:(int)chain apiKey:(char * _Nonnull)apiKey {
+    NSLog(@"mwsdk:ios:init %d,%d,%s",env,chain,apiKey);
+    initialized = true;
+    [self setEnvironment:env];
+    [self setChain:chain];
+    [self setApiKey:apiKey];
+    
+    NSString * oldRefreshToken = [MWPersistence getSavedRefreshToken];
+    NSLog(@"mwsdk:ios oldRefreshToken is %@",oldRefreshToken);
+    if(oldRefreshToken != nil){
+        [self setRefreshToken:oldRefreshToken];
+    }
+    
+}
 
 + (void)handleOpen:(NSURL *)url {
     NSString *urlString = [url.absoluteString stringByRemovingPercentEncoding];
@@ -186,26 +268,15 @@ static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/lo
 
 +(void) _handleAccessToken:(NSString *) accessToken{
     [self setAccessToken:accessToken];
-    //todo set access token
-//                [MirrorWorldSDKAuthData share].access_token = accToken;
-//                if (self.accessTokenBlock) {
-//                    self.accessTokenBlock(accToken);
-//                }
 }
 
 +(void) _handleRefreshToken:(NSString *) refreshToken{
     [self setRefreshToken:refreshToken];
-    //todo set refresh token
-//                [MirrorWorldSDKAuthData share].refresh_token = refreToken;
-//                [[MirrorWorldSDKAuthData share] saveRefreshToken];
-//                if (self.refreshTokenBlock) {
-//                    self.refreshTokenBlock(refreToken);
-//                }
+    [MWPersistence saveRefreshToken:refreshToken];
 }
 
 +(void) _handleUserInfo:(NSData *) userInfo{
-    
-//                [MirrorWorldSDKAuthData share].userInfo = userInfoObject;
+    //todo persistence userInfo if needed
 }
 
 

@@ -15,6 +15,8 @@
 		E60B84E22B21620000AA4070 /* MirrorBridegForC.h in Headers */ = {isa = PBXBuildFile; fileRef = E60B84E02B21620000AA4070 /* MirrorBridegForC.h */; };
 		E60B84ED2B21B32C00AA4070 /* MWLoginPage.h in Sources */ = {isa = PBXBuildFile; fileRef = E60B84EC2B21B32C00AA4070 /* MWLoginPage.h */; };
 		E60B84EF2B21B35D00AA4070 /* MWLoginPage.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B84EE2B21B35D00AA4070 /* MWLoginPage.m */; };
+		E61C7A362B26B4BF00478706 /* MWPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = E61C7A352B26B4BF00478706 /* MWPersistence.m */; };
+		E61C7A392B26B90B00478706 /* MWNetUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E61C7A382B26B90B00478706 /* MWNetUtil.m */; };
 		E6F477C92B21D3AD00E52F17 /* MWParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F477C82B21D3AD00E52F17 /* MWParser.m */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,10 @@
 		E60B84E02B21620000AA4070 /* MirrorBridegForC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MirrorBridegForC.h; sourceTree = "<group>"; };
 		E60B84EC2B21B32C00AA4070 /* MWLoginPage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWLoginPage.h; sourceTree = "<group>"; };
 		E60B84EE2B21B35D00AA4070 /* MWLoginPage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWLoginPage.m; sourceTree = "<group>"; };
+		E61C7A342B26B3F300478706 /* MWPersistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWPersistence.h; sourceTree = "<group>"; };
+		E61C7A352B26B4BF00478706 /* MWPersistence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWPersistence.m; sourceTree = "<group>"; };
+		E61C7A372B26B8D200478706 /* MWNetUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWNetUtil.h; sourceTree = "<group>"; };
+		E61C7A382B26B90B00478706 /* MWNetUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWNetUtil.m; sourceTree = "<group>"; };
 		E6F477C82B21D3AD00E52F17 /* MWParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWParser.m; sourceTree = "<group>"; };
 		E6F477CA2B21D56000E52F17 /* MWParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWParser.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +96,10 @@
 				E60B84EE2B21B35D00AA4070 /* MWLoginPage.m */,
 				E6F477C82B21D3AD00E52F17 /* MWParser.m */,
 				E6F477CA2B21D56000E52F17 /* MWParser.h */,
+				E61C7A342B26B3F300478706 /* MWPersistence.h */,
+				E61C7A352B26B4BF00478706 /* MWPersistence.m */,
+				E61C7A372B26B8D200478706 /* MWNetUtil.h */,
+				E61C7A382B26B90B00478706 /* MWNetUtil.m */,
 			);
 			path = MWSDK;
 			sourceTree = "<group>";
@@ -214,7 +224,9 @@
 				E60B84A32B20C16A00AA4070 /* MWSDK.m in Sources */,
 				E60B84E12B21620000AA4070 /* MirrorBridegForC.mm in Sources */,
 				E60B84EF2B21B35D00AA4070 /* MWLoginPage.m in Sources */,
+				E61C7A362B26B4BF00478706 /* MWPersistence.m in Sources */,
 				E60B84ED2B21B32C00AA4070 /* MWLoginPage.h in Sources */,
+				E61C7A392B26B90B00478706 /* MWNetUtil.m in Sources */,
 				E6F477C92B21D3AD00E52F17 /* MWParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

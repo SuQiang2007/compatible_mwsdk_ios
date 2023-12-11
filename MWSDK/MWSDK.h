@@ -37,6 +37,13 @@ FOUNDATION_EXPORT const unsigned char MWSDKVersionString[];
 + (void)logMessage:(NSString *_Nullable)message;
 
 //SDK functions
++ (void)initSDK:(int)env chain:(int)chain apiKey:(char *_Nonnull)apiKey;
++ (void)mwRequestWithURL:(NSString *_Nonnull)url
+                  isPost:(BOOL)isPost
+                 dataDic:(NSDictionary<NSString *, id> *_Nullable)dataDic
+            successBlock:(void (^_Nonnull)(NSString * _Nonnull responseString))successBlock
+               failBlock:(void (^_Nonnull)(NSInteger code, NSString * _Nonnull errorDesc))failBlock;
++ (void)autoLogin:(LoginCompletionBlock _Nullable )completionBlock;
 + (void)startLogin:(LoginCompletionBlock _Nullable )completionBlock;
 + (void)handleOpen:(NSURL*_Nonnull) url;
 
