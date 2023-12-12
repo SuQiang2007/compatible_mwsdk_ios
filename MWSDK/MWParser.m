@@ -49,11 +49,10 @@
         
         return paramDic;
     } else if ([schemeValue hasPrefix:@"wallet"]) {
-//        [[MirrorWorldSDKAuthData share] clearToken];
-//        if (self.onWalletLogOut) {
-//            self.onWalletLogOut();
-//        }
-        return nil;
+        NSMutableDictionary<NSString *, NSString *> *paramDic = [NSMutableDictionary dictionary];
+        [paramDic setObject:@"" forKey:@"walletLogout"];
+        
+        return paramDic;
     } else if ([schemeValue hasPrefix:@"approve"]) {
         
         // Assuming schemeValue is an NSString

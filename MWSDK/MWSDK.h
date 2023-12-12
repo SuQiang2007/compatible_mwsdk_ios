@@ -10,6 +10,8 @@
 //Defines
 typedef void (^LoginCompletionBlock)(NSMutableDictionary<NSString *, id> * _Nullable loginResultDic);
 
+typedef void (^WalletLogoutBlock)(void);
+
 //! Project version number for MWSDK.
 FOUNDATION_EXPORT double MWSDKVersionNumber;
 
@@ -45,6 +47,9 @@ FOUNDATION_EXPORT const unsigned char MWSDKVersionString[];
                failBlock:(void (^_Nonnull)(NSInteger code, NSString * _Nonnull errorDesc))failBlock;
 + (void)autoLogin:(LoginCompletionBlock _Nullable )completionBlock;
 + (void)startLogin:(LoginCompletionBlock _Nullable )completionBlock;
++ (void)clearMWCache;
++ (void)openWallet:(WalletLogoutBlock _Nullable )callback;
+
 + (void)handleOpen:(NSURL*_Nonnull) url;
 
 //SDK callbacks

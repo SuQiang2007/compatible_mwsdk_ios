@@ -18,7 +18,9 @@ static NSString *accessToken = nil;
 static NSString *refreshToken = nil;
 
 static LoginCompletionBlock _Nullable loginCompletionBlock;//Called when login flow is successed
+static WalletLogoutBlock walletLogoutBlock;
 static MWLoginPage  * _Nullable loginPage;//Pointer of the opening login page
+static MWLoginPage * _Nullable walletPage;//Pointer of the opening wallet page
 
 static NSString *const loginUrl = @"https://auth-next.mirrorworld.fun/v1/auth/login";
 static NSString *const walletUrl = @"https://auth-next.mirrorworld.fun/v1/assets/tokens";
@@ -75,6 +77,9 @@ static NSString *const walletUrl = @"https://auth-next.mirrorworld.fun/v1/assets
 
 + (MWLoginPage* _Nullable)loginPage {
     return loginPage;
+}
++ (MWLoginPage* _Nullable)walletPage {
+    return walletPage;
 }
 
 + (char *)apiKey {
@@ -139,6 +144,13 @@ static NSString *const walletUrl = @"https://auth-next.mirrorworld.fun/v1/assets
         return;
     }
     
+    if(!refreshToken){
+        refreshToken = [MWPersistence getSavedRefreshToken];
+    }
+    if(!refreshToken){
+        [self startLogin:completionBlock];
+        return;
+    }
     NSString *url = @"https://api.mirrorworld.fun/v2/auth/refresh-token";
     NSDictionary<NSString *, id> *tokenDictionary = @{@"x-refresh-token": refreshToken};
     [self mwRequestWithURL:url
@@ -201,6 +213,29 @@ static NSString *const walletUrl = @"https://auth-next.mirrorworld.fun/v1/assets
     
 }
 
++ (void)clearMWCache {
+    NSLog(@"mwsdk:ios clear cache>>>>>>");
+    accessToken = nil;
+    refreshToken = nil;
+    [MWPersistence clearRefreshToken];
+}
+
++ (void)openWallet:(WalletLogoutBlock)callback {
+    
+    NSURL *url = [NSURL URLWithString:walletUrl];
+    MWLoginPage *safariViewController = [[MWLoginPage alloc] initWithURL:url];
+    walletPage = safariViewController;
+    [[MWSDK getBaseViewController] presentViewController:safariViewController animated:YES completion:nil];
+    
+    walletLogoutBlock = ^{
+        NSLog(@"mwsdk:ios logout called and mw cache will be clean.");
+        [self clearMWCache];
+        if (callback) {
+            callback();
+        }
+    };
+}
+
 + (void)handleOpen:(NSURL *)url {
     NSString *urlString = [url.absoluteString stringByRemovingPercentEncoding];
     if (!urlString) {
@@ -233,15 +268,20 @@ static NSString *const walletUrl = @"https://auth-next.mirrorworld.fun/v1/assets
                 refresh_tokenKey = refreToken;
                 [self _handleRefreshToken:refreToken];
             }
-
-            if ([key isEqualToString:@"data"]) {
+            else if ([key isEqualToString:@"data"]) {
                 NSData *userInfoObject = [value dataUsingEncoding:NSUTF8StringEncoding];
                 //todo set user info
                 [self _handleUserInfo:userInfoObject];
             }
-
-            if ([key isEqualToString:@"authorization_token"]) {
+            else if ([key isEqualToString:@"authorization_token"]) {
                 authorization_token = value ?: @"";
+            }
+            else if ([key isEqualToString:@"walletLogout"]) {
+                walletLogoutBlock();
+                [self.walletPage dismissViewControllerAnimated:YES completion:^{
+                    NSLog(@"walletPage dismissed");
+                }];
+                return;
             }
         }
 

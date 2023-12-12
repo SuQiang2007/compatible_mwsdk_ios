@@ -20,5 +20,10 @@
     return token;
 }
 
++ (void)clearRefreshToken {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"mw_refresh_token"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 @end

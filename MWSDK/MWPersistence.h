@@ -8,12 +8,14 @@
 #ifndef MWPersistence_h
 #define MWPersistence_h
 
+#endif /* MWPersistence_h */
 
 @interface MWPersistence : NSObject;
 
 + (void)saveRefreshToken : (NSString *_Nonnull)token;
-#endif /* MWPersistence_h */
 
 + (NSString*_Nullable)getSavedRefreshToken;
+
++ (void)clearRefreshToken;
 
 @end
