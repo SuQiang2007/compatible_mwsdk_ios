@@ -22,23 +22,7 @@ extern "C"
 extern "C"
 {
     extern void IOSInitSDK(int environment, int chain, char *apikey){
-        [MWSDK setEnvironment:environment];
-        [MWSDK setApiKey:apikey];
-        [MWSDK setChain:chain];
-//        MWEnvironment env = MWEnvironmentMainNet;
-//        if (environment == 1){env = MWEnvironmentMainNet; }
-//        if (environment == 2){env = MWEnvironmentDevNet; }
-////        if (environment == 0){env = MWEnvironmentStagingDevNet; }
-////        if (environment == 1){env = MWEnvironmentStagingMainNet; }
-////        if (environment == 3){ env = MWEnvironmentDevNet; }
-//        MWChain chainEnum = MWChainSolana;
-//        if (chain == 1){ chainEnum = MWChainSolana; }
-//        if (chain == 2){ chainEnum = MWChainEthereum; }
-//        if (chain == 3){ chainEnum = MWChainPolygon; }
-//        if (chain == 4){ chainEnum = MWChainBNB; }
-//        NSLog(@"ios-environment:%ld",(long)env);
-//        NSString *key = [NSString stringWithFormat:@"%s",apikey];
-//        [[MirrorWorldSDK share] initSDKWithEnv:env chain:chainEnum apiKey:key];
+        [MWSDK initSDK:environment chain:chain apiKey:apikey];
     }
 }
 
@@ -46,25 +30,12 @@ extern "C"
 {
     typedef void (*IOSLoginCallback) (const char *object);
     extern void IOSStartLogin(IOSLoginCallback callback){
-        NSLog(@"mwsdk:IOSStartLogin called");
-        //Used for reference
-//        [[MirrorWorldSDK share] startLoginOnSuccess:^(NSDictionary<NSString *,id> * userinfo) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userinfo options:NSJSONWritingPrettyPrinted error:nil];
-//                NSString *user = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//                const char *cString = [user UTF8String];
-//                callback(cString);
-//              });
-//        } onFail:^{
-//
-//        }];
+        NSLog(@"mwsdk:ios bridge IOSStartLogin called.");
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [MWSDK startLogin:^(NSDictionary<NSString *, id> * _Nullable userInfo) {
-                // 处理登录成功的情况，可以使用传入的 userInfo
-                NSLog(@"mwsdk:Login successful. User info: %@", userInfo);
+            [MWSDK startLogin:^(NSDictionary<NSString *, id> * _Nullable loginResponse) {
+                NSLog(@"mwsdk:ios IOSStartLogin callback runs");
                 
-                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:loginResponse options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *user = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
                 const char *cString = [user UTF8String];
                 callback(cString);
@@ -81,21 +52,14 @@ extern "C"
     typedef void (*iOSWalletLoginTokenCallback)(const char *object);
 
     extern void IOSOpenWallet(const char *url,iOSWalletLogOutCallback callback,iOSWalletLoginTokenCallback walletLoginCallback){
-        NSLog(@"iOS_MWSDK_LOG: - IOSOpenWallet");
-//        NSString *urlStr = [NSString stringWithFormat:@"%s",url];
-//
-//        [[MirrorWorldSDK share] mw_Unity_WalletWithUrl:urlStr onLogout:^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                callback("wallet is logout.");
-//            });
-//        } loginSuccess:^(NSDictionary<NSString *,id> * userinfo) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userinfo options:NSJSONWritingPrettyPrinted error:nil];
-//                NSString *user = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//                const char *cString = [user UTF8String];
-//                walletLoginCallback(cString);
-//            });
-//        }];
+        NSLog(@"mwsdk ios: - IOSOpenWallet in bridge runs.");
+        [MWSDK openWallet:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (callback != nil) {
+                        callback("No need this string param any more");
+                    }
+                });
+            }];
     }
 
 }
