@@ -144,6 +144,11 @@ static NSString *const walletUrl = @"https://auth-next.mirrorworld.fun/v1/assets
         return;
     }
     
+    if(!accessToken){
+        NSLog(@"mwsdk ios: there is no access token, please login first.");
+        return;
+    }
+    
     if(!refreshToken){
         refreshToken = [MWPersistence getSavedRefreshToken];
     }
